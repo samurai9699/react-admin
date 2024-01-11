@@ -29,7 +29,7 @@ import {
             <div className="topInfo">
               {props.img && <img src={props.img} alt="" />}
               <h1>{props.title}</h1>
-              <button>Update</button>
+              <button>Modify</button>
             </div>
             <div className="details">
               {Object.entries(props.info).map((item) => (
@@ -72,7 +72,7 @@ import {
           )}
         </div>
         <div className="activities">
-          <h2>Latest Activities</h2>
+          <h2>Activity Stream</h2>
           {props.activities && (
             <ul>
               {props.activities.map((activity) => (

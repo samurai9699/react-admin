@@ -79,8 +79,11 @@ const Users = () => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <DataTable slug="users" columns={columns} rows={data} />
-      )}
+        data && data.length > 0 ? (
+          <DataTable slug="users" columns={columns} rows={data} />
+        ) : (
+            "No data available"
+      ))}
       {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
     </div>
   );

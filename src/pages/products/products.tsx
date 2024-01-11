@@ -4,6 +4,7 @@ import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
 import { GridColDef } from "@mui/x-data-grid";
 import { products } from "../../data";
+import { useQuery } from "@tanstack/react-query";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -58,13 +59,13 @@ const Products = () => {
 
   // TEST THE API
 
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["allproducts"],
-  //   queryFn: () =>
-  //     fetch("http://localhost:8800/api/products").then(
-  //       (res) => res.json()
-  //     ),
-  // });
+  const { isLoading, data } = useQuery({
+    queryKey: ["allproducts"],
+    queryFn: () =>
+      fetch("http://localhost:8800/api/products").then(
+        (res) => res.json()
+      ),
+  });
 
   return (
     <div className="products">
@@ -74,12 +75,15 @@ const Products = () => {
       </div>
       <DataTable slug="products" columns={columns} rows={products} />
       {/* TEST THE API */}
-
-      {/* {isLoading ? (
+      
+      {isLoading ? (
         "Loading..."
       ) : (
-        <DataTable slug="products" columns={columns} rows={data} />
-      )} */}
+        data && data.length > 0 ? (
+          <DataTable slug="users" columns={columns} rows={data} />
+        ) : (
+            "No data available"
+      ))}
       {open && <Add slug="product" columns={columns} setOpen={setOpen} />}
     </div>
   );
